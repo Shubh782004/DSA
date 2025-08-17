@@ -3,11 +3,8 @@ public:
     int minBitFlips(int start, int goal) {
         int num= start^goal;
         int cnt=0;
-        while(num){
-            if(num%2==1) {
-                cnt++;
-            }
-            num/=2;
+        for(int i=0; i<32; i++){
+            if(num& (1<<i)) cnt++;
         }
         return cnt;
         
