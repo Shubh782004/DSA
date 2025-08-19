@@ -8,7 +8,5 @@ public:
             ans+=cnt;
         }
         return ans;
-
-        
     }
 };
