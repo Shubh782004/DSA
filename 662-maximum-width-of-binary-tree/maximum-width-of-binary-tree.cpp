@@ -22,7 +22,7 @@ public:
             int left,right;
             for(int i=0; i<n; i++){
                 TreeNode* node= q.front().first;
-                long long ind= q.front().second-indmin;
+                long long ind= q.front().second;
                 q.pop();
                 if(i==0)  left=ind;
                 if(i==n-1)  right=ind;
