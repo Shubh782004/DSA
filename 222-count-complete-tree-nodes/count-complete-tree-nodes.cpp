@@ -12,11 +12,30 @@
 class Solution {
 public:
     int countNodes(TreeNode* root) {
-        if (root==NULL) return 0;
-        int left=countNodes(root->left);
-        int right= countNodes(root->right);
-        return left+right+1;
+        if(!root) return 0;
+        int left= findLeftHeight(root);
+        int right=findRightHeight(root);
+        if(left==right) return (1<<left)-1;
+        return 1+countNodes(root->left)+countNodes(root->right);
 
-        
+    }
+    int findLeftHeight(TreeNode*root){
+        if(!root) return 0;
+        int cnt=0;
+        while(root){
+            cnt++;
+            root=root->left;
+        }
+        return cnt;
+    }
+
+    int findRightHeight(TreeNode*root){
+        if(!root) return 0;
+        int cnt=0;
+        while(root){
+            cnt++;
+            root=root->right;
+        }
+        return cnt;
     }
 };
