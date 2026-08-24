@@ -16,9 +16,23 @@ public:
         int m=obstacleGrid.size();
         int n=obstacleGrid[0].size();
         if(obstacleGrid[m-1][n-1]==1) return 0;
-        vector<vector<int>>dp(m,vector<int>(n,-1));
-        int ans=rec(0,0,m,n,obstacleGrid,dp);
-        return ans;
+        vector<vector<long long>>dp(m,vector<long long>(n,0));
+        dp[m-1][n-1]=1;
+        for(int row=m-1; row>=0; row--){
+            for(int col=n-1; col>=0; col--){
+                if(obstacleGrid[row][col]==1){
+                    dp[row][col]=0;
+                    continue;
+                }
+                if(row==m-1 && col==n-1) continue;
+                long long right=0,down=0;
+                if(col+1<n )right=dp[row][col+1];
+                if(row+1<m) down=dp[row+1][col];
+                dp[row][col]=right+down;
+            }
+
+        }
+        return dp[0][0];
 
         
     }
