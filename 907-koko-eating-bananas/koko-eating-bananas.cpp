@@ -1,28 +1,26 @@
 class Solution {
 public:
-    int no_of_hours(vector<int>&piles,int k){
-        int hours=0;
+    int hours(vector<int>& piles, int speed){
+        int cnt=0;
         for(int i=0; i<piles.size(); i++){
-            if(piles[i]%k==0) hours+=piles[i]/k;
-            else hours+=piles[i]/k +1;
+            if(piles[i]<=speed) cnt++;
+            else {
+                cnt+=piles[i]/speed;
+                if(piles[i]%speed) cnt++;
+            }
         }
-        return hours;
+        return cnt;
     }
     int minEatingSpeed(vector<int>& piles, int h) {
-        int k_max=INT_MIN;
-        for(int i=0; i<piles.size(); i++){
-            k_max=max(k_max,piles[i]);
-        }
-
-        int low=1,high=k_max;
+        int high=*max_element(piles.begin(),piles.end());
+        int low=1;
         while(low<high){
-            int mid= low+(high-low)/2;
-            int hr=no_of_hours(piles,mid);
-            if(h<hr){
-                low=mid+1;
-            }
-            else high=mid;
-        } 
-        return low;       
+            int mid=low+(high-low)/2;
+            if(hours(piles,mid)<=h)  high=mid;
+            else low=mid+1;
+        }
+        return low;
+        
+        
     }
 };
