@@ -2,20 +2,22 @@ class Solution {
 public:
     int characterReplacement(string s, int k) {
         int n=s.size();
-        int l=0,r=0;
-        int maxlen=0;
-        int maxfreq=0;
-        unordered_map<int,int>freq;
+        int max_len=0,max_freq=0,l=0,r=0;
+        unordered_map<char,int>mp;
         while(r<n){
-            freq[s[r]]++;
-            maxfreq=max(maxfreq,freq[s[r]]);
-            if((r-l+1-maxfreq)>k){
-                freq[s[l]]--;
+            mp[s[r]]++;
+            max_freq=max(max_freq,mp[s[r]]);
+            while((r-l+1)-max_freq >k){
+                mp[s[l]]--;
                 l++;
             }
-            maxlen=max(maxlen,r-l+1);
+            max_len= max(max_len,r-l+1);
             r++;
+
+
         }
-        return maxlen;
+        return max_len;
+
+        
     }
 };
