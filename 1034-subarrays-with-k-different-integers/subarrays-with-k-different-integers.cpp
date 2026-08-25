@@ -1,26 +1,24 @@
 class Solution {
 public:
-    int lessthanorequal(vector<int>&nums, int k){
-        int n=nums.size();
-        int r=0,l=0;
+    int subwithK(vector<int>& nums, int k){
+        unordered_map<int,int>mp;
         int cnt=0;
-        unordered_map<int,int>mpp;
+        int l=0,r=0;
+        int n=nums.size();
         while(r<n){
-            mpp[nums[r]]++;
-            while(mpp.size()>k && l<=r){
-                mpp[nums[l]]--;
-                if(mpp[nums[l]] == 0) {
-                     mpp.erase(nums[l]);
-                 }
+            mp[nums[r]]++;
+            while(mp.size()>k && l<=r){
+                mp[nums[l]]--;
+                if(mp[nums[l]]==0) mp.erase(nums[l]);
                 l++;
             }
-            cnt+=r-l+1;
+            cnt+=(r-l+1);
             r++;
         }
         return cnt;
     }
     int subarraysWithKDistinct(vector<int>& nums, int k) {
-        return lessthanorequal(nums,k)-lessthanorequal(nums, k-1);
+        return subwithK(nums,k)-subwithK(nums,k-1);
         
     }
 };
