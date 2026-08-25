@@ -3,16 +3,13 @@ public:
     int missingMultiple(vector<int>& nums, int k) {
         set<int>st;
         for(int i=0; i<nums.size(); i++){
-            if(nums[i]%k==0){
-                st.insert(nums[i]);
-            }
+            st.insert(nums[i]);
         }
-        int ans=k;
+        int i=1;
         for(auto it:st){
-            if(it==ans) ans=ans+k;
-            else return ans;
+            if(st.find(k*i)!=st.end()) i++;
         }
-        return ans;
+        return k*i;
+        
     }
-
 };
