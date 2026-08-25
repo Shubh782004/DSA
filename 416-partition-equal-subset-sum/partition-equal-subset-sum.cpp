@@ -15,8 +15,20 @@ public:
         if(target%2) return false;
         int t=target/2;
         int n=nums.size();
-        vector<vector<int>>dp(n,vector<int>(t+1,-1));
-        return f(nums,n-1,t,dp);
+        vector<vector<bool>>dp(n,vector<bool>(t+1,0));
+        for(int i=0; i<n ; i++) dp[i][0]=true;
+        if(nums[0]<t) dp[0][nums[0]]=true;
+        for(int i=1; i<=n-1; i++){
+            for(int tar=1; tar<=t; tar++){
+                bool nottake= dp[i-1][tar];
+                bool take=false;
+                if(nums[i]<=tar) take=dp[i-1][tar-nums[i]];
+                dp[i][tar]=take||nottake;
+            }
+        }
+        return dp[n-1][t];
+        
+        // return f(nums,n-1,t,dp);
 
 
         
