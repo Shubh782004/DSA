@@ -45,20 +45,25 @@ public:
     stack<int> st;
     int maxArea = 0;
 
-    for (int i = 0; i <= n; ++i) {
-        int currH = (i == n) ? 0 : heights[i];  // sentinel height
-
-        while (!st.empty() && currH < heights[st.top()]) {
-            int h = heights[st.top()];
+    for(int i=0; i<heights.size(); i++){
+        while(!st.empty() && heights[st.top()]>=heights[i]){
+            int element= st.top();
             st.pop();
-            int r = i;
-            int l = st.empty() ? -1 : st.top();
-            int width = r - l - 1;
-            maxArea = max(maxArea, h * width);
+            int nse=i;
+            int pse=(!st.empty())?st.top():-1;
+            maxArea=max(maxArea,(nse-pse-1)*heights[element]);
         }
         st.push(i);
+        
     }
+    while(!st.empty()){
+            int ele=st.top();
+            st.pop();
+            int nse=n;
+            int pse=(!st.empty())?st.top():-1;
+            maxArea=max(maxArea,(nse-pse-1)*heights[ele]);
 
+        }
     return maxArea;
 }
 };
